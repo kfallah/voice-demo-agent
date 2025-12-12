@@ -1054,6 +1054,7 @@ dependencies = [
     { name = "mcp" },
     { name = "numpy" },
     { name = "openai" },
+    { name = "requests" },
     { name = "sounddevice" },
 ]
 
@@ -1064,6 +1065,7 @@ requires-dist = [
     { name = "mcp", specifier = ">=1.23.3" },
     { name = "numpy", specifier = ">=2.3.5" },
     { name = "openai", specifier = ">=2.11.0" },
+    { name = "requests", specifier = ">=2.32.0" },
     { name = "sounddevice", specifier = ">=0.5.3" },
 ]
 
