@@ -1,0 +1,338 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Unbounded:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+@layer base {
+  :root {
+    --background: 225 30% 3%;
+    --foreground: 220 20% 95%;
+
+    --card: 225 28% 6%;
+    --card-foreground: 220 20% 95%;
+
+    --popover: 225 28% 6%;
+    --popover-foreground: 220 20% 95%;
+
+    --primary: 200 100% 55%;
+    --primary-foreground: 225 30% 3%;
+
+    --secondary: 225 20% 10%;
+    --secondary-foreground: 220 15% 75%;
+
+    --muted: 225 20% 12%;
+    --muted-foreground: 220 15% 45%;
+
+    --accent: 220 30% 70%;
+    --accent-foreground: 225 30% 3%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 225 20% 12%;
+    --input: 225 20% 12%;
+    --ring: 200 100% 55%;
+
+    --radius: 0.75rem;
+
+    /* Futuristic tokens - electric blue + platinum silver */
+    --gradient-primary: linear-gradient(135deg, hsl(200 100% 55%) 0%, hsl(220 80% 65%) 50%, hsl(200 100% 55%) 100%);
+    --gradient-shimmer: linear-gradient(90deg, transparent 0%, hsl(200 100% 55% / 0.3) 50%, transparent 100%);
+    --gradient-hero: radial-gradient(ellipse 80% 60% at 50% -10%, hsl(200 100% 55% / 0.15) 0%, hsl(220 80% 65% / 0.08) 40%, transparent 70%);
+    --gradient-mesh: radial-gradient(at 20% 30%, hsl(200 100% 55% / 0.1) 0px, transparent 50%),
+                     radial-gradient(at 80% 20%, hsl(220 80% 65% / 0.08) 0px, transparent 50%),
+                     radial-gradient(at 40% 80%, hsl(200 100% 55% / 0.05) 0px, transparent 50%);
+    
+    --shadow-glow: 0 0 50px hsl(200 100% 55% / 0.35);
+    --shadow-glow-soft: 0 0 30px hsl(220 80% 65% / 0.25);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.5);
+    
+    --font-display: 'Unbounded', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
+    --sidebar-background: 225 30% 3%;
+    --sidebar-foreground: 220 20% 95%;
+    --sidebar-primary: 200 100% 55%;
+    --sidebar-primary-foreground: 225 30% 3%;
+    --sidebar-accent: 225 20% 10%;
+    --sidebar-accent-foreground: 220 20% 95%;
+    --sidebar-border: 225 20% 12%;
+    --sidebar-ring: 200 100% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+    background-size: 200% 100%;
+    animation: shimmerText 3s ease-in-out infinite;
+  }
+
+  .bg-gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-gradient-mesh {
+    background-image: var(--gradient-mesh);
+  }
+
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(var(--background), var(--background)) padding-box,
+                var(--gradient-primary) border-box;
+  }
+
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glow-soft {
+    box-shadow: var(--shadow-glow-soft);
+  }
+
+  .glass {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50;
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-shimmer);
+    transform: translateX(-100%);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Animations */
+  .animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-up-delay-1 { animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards; opacity: 0; }
+  .animate-fade-up-delay-2 { animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards; opacity: 0; }
+  .animate-fade-up-delay-3 { animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards; opacity: 0; }
+  .animate-fade-up-delay-4 { animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards; opacity: 0; }
+
+  .animate-float {
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out 1s infinite;
+  }
+
+  .animate-float-slow {
+    animation: floatSlow 10s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 4s ease infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin 15s linear infinite reverse;
+  }
+
+  .animate-orbit {
+    animation: orbit 12s linear infinite;
+  }
+
+  .animate-beam {
+    animation: beam 3s ease-in-out infinite;
+  }
+
+  .animate-scan {
+    animation: scan 3s linear infinite;
+  }
+
+  .animate-scan-horizontal {
+    animation: scanHorizontal 4s ease-in-out infinite;
+  }
+
+  .animate-drift {
+    animation: drift 6s ease-in-out infinite;
+  }
+
+  .animate-glow-line {
+    animation: glowLine 3s ease-in-out infinite;
+  }
+
+  .animate-line-grow {
+    animation: lineGrow 1.5s ease-out forwards;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-15px) rotate(1deg); }
+  50% { transform: translateY(-25px) rotate(0deg); }
+  75% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  33% { transform: translateY(-20px) translateX(10px); }
+  66% { transform: translateY(-10px) translateX(-10px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    box-shadow: 0 0 20px hsl(200 100% 55% / 0.4), 0 0 40px hsl(200 100% 55% / 0.2), 0 0 60px hsl(200 100% 55% / 0.1);
+  }
+  50% { 
+    box-shadow: 0 0 30px hsl(200 100% 55% / 0.6), 0 0 60px hsl(200 100% 55% / 0.3), 0 0 90px hsl(200 100% 55% / 0.15);
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmerText {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  50%, 100% { transform: translateX(100%); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+@keyframes beam {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(1.2); }
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleY(0); transform-origin: top; }
+  to { transform: scaleY(1); transform-origin: top; }
+}
+
+@keyframes scanHorizontal {
+  0%, 100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+@keyframes drift {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(50px, -30px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(100px, 20px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(30px, 50px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes glowLine {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scaleX(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* Scanline effect */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    hsl(200 100% 55% / 0.03) 2px,
+    hsl(200 100% 55% / 0.03) 4px
+  );
+  pointer-events: none;
+}
