@@ -1,11 +1,12 @@
 # Browser Agent CLI
 
-AI-powered browser automation with natural language commands. Uses [Playwright MCP](https://playwright.dev/agents/playwright-mcp-browser-automation) for browser control and Claude for interpreting commands.
+AI-powered browser automation with voice commands. Uses [Playwright MCP](https://playwright.dev/agents/playwright-mcp-browser-automation) for browser control, Claude for interpreting commands, and ElevenLabs for text-to-speech.
 
 ## Prerequisites
 
 - Node.js (for running Playwright MCP server)
 - Python 3.11+
+- ffmpeg (for audio playback in voice mode)
 
 ## Setup
 
@@ -21,30 +22,36 @@ uv sync
 npm install -g @playwright/mcp
 ```
 
-3. **Set your Anthropic API key:**
+3. **Set your API keys:**
 
 ```bash
 export ANTHROPIC_API_KEY=your-key-here
+export OPENAI_API_KEY=your-key-here      # For Whisper speech-to-text
+export ELEVENLABS_API_KEY=your-key-here  # For text-to-speech
 ```
 
-Or create a `.env` file:
-
-```
-ANTHROPIC_API_KEY=your-key-here
-```
+Or create a `.env` file with these values.
 
 ## Usage
+
+### Text Mode (default)
 
 ```bash
 uv run python -m browser_agent https://example.com
 ```
 
-This will:
-1. Start the Playwright MCP server
-2. Launch a browser and navigate to the specified URL
-3. Start an interactive prompt where you can type natural language commands
+### Voice Mode
 
-### Example Commands
+```bash
+uv run python -m browser_agent --voice https://example.com
+```
+
+In voice mode:
+- Press Enter to start recording your voice command
+- Press Enter again to stop recording and submit
+- The agent will speak what it's doing and its responses
+
+## Example Commands
 
 ```
 > Click the login button
@@ -60,7 +67,8 @@ Type `quit` or `exit` to close the browser and exit.
 
 ## Features
 
+- **Voice input**: Speak commands using your microphone (Whisper transcription)
+- **Voice output**: Agent speaks what it's doing (ElevenLabs TTS)
 - **Natural language commands**: Just describe what you want the browser to do
 - **Full browser control**: Click, type, scroll, navigate, screenshot, and more
-- **Session persistence**: The browser stays open between commands
 - **Conversation history**: Claude remembers context from previous commands
